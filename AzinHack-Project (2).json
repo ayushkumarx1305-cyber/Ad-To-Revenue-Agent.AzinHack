@@ -1,0 +1,511 @@
+{
+  "name": "AzinHack-Project",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "ABC Company form for XYZ software",
+        "formDescription": "ABC Company this side. We are launching our new software XYZ and it will boost your business.\n\nPlease fill this form and we will contact you very soon. ",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Phone No.",
+              "fieldType": "number",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Email ID",
+              "fieldType": "email",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Company Website"
+            },
+            {
+              "fieldLabel": "What problem you are facing?"
+            },
+            {
+              "fieldLabel": "Social Media Profile"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        -576,
+        -144
+      ],
+      "id": "d31338f4-f5f0-4474-8629-6fe44a70bd19",
+      "name": "On form submission",
+      "webhookId": "0bac57d8-1933-4880-8982-c4063dad240f"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1FhQNGWfCfPJ18PLFMKnm-p4_Yy8arsuUGckBiFtloNE",
+          "mode": "list",
+          "cachedResultName": "Demo",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FhQNGWfCfPJ18PLFMKnm-p4_Yy8arsuUGckBiFtloNE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FhQNGWfCfPJ18PLFMKnm-p4_Yy8arsuUGckBiFtloNE/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.Name }}",
+            "Phone No.": "={{ $json['Phone No.'] }}",
+            "Email ID": "={{ $json['Email ID'] }}",
+            "Company Website": "={{ $json['Company Website'] }}",
+            "What problem you are facing?": "={{ $json['What problem you are facing?'] }}",
+            "Social Media Profile": "={{ $json['Social Media Profile'] }}"
+          },
+          "matchingColumns": [
+            "Email ID"
+          ],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Phone No.",
+              "displayName": "Phone No.",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email ID",
+              "displayName": "Email ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Company Website",
+              "displayName": "Company Website",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "What problem you are facing?",
+              "displayName": "What problem you are facing?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Social Media Profile",
+              "displayName": "Social Media Profile",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -384,
+        -144
+      ],
+      "id": "cdf73b05-1947-426c-88f8-631a48407e5e",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "MSirY9tZagInPCi8",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "runSync",
+        "url": "={{ $json['Company Website'] }}{{ $json['Company Website'] }}",
+        "goal": "Visit this company's website, including its About, Products/Services and Careers pages. Write ONE plain-text business profile, not a list of separate fields. Return JSON with exactly one key, \"business_info\", whose value is a single text string in this order: what the company does; their products or services; industry; approximate size and locations; growth signals (launches, funding, expansion, news); open job roles; founder or CEO names listed publicly on the site; business contact details shown on the site. Separate the parts with \" | \". Use only information found on the site. For anything not found, write \"not found\". Do not guess.",
+        "options": {}
+      },
+      "type": "n8n-nodes-tinyfish.tinyfish",
+      "typeVersion": 1,
+      "position": [
+        -224,
+        -144
+      ],
+      "id": "5d490b73-49e0-4c31-95ab-add9d78c2c0a",
+      "name": "TinyFish Web Agent",
+      "credentials": {
+        "tinyfishApi": {
+          "id": "zOSLJ2ZxMiOm62aK",
+          "name": "TinyFish Web Agent account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1FhQNGWfCfPJ18PLFMKnm-p4_Yy8arsuUGckBiFtloNE",
+          "mode": "list",
+          "cachedResultName": "Demo",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FhQNGWfCfPJ18PLFMKnm-p4_Yy8arsuUGckBiFtloNE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FhQNGWfCfPJ18PLFMKnm-p4_Yy8arsuUGckBiFtloNE/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Business Info": "={{ $json['Business info'] }}",
+            "Services/Products": "={{ $json['Service/Product'] }}",
+            "Location": "={{ $json.Location }}",
+            "Growth": "={{ $json.Growth }}",
+            "Lead": "={{ $json.Lead }}",
+            "Lead Reason": "={{ $json['Lead Reason'] }}"
+          },
+          "matchingColumns": [
+            "Business Info"
+          ],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Phone No.",
+              "displayName": "Phone No.",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Email ID",
+              "displayName": "Email ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Company Website",
+              "displayName": "Company Website",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "What problem you are facing?",
+              "displayName": "What problem you are facing?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Social Media Profile",
+              "displayName": "Social Media Profile",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Business Info",
+              "displayName": "Business Info",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Services/Products",
+              "displayName": "Services/Products",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Location",
+              "displayName": "Location",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Growth",
+              "displayName": "Growth",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Lead",
+              "displayName": "Lead",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Lead Reason",
+              "displayName": "Lead Reason",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        512,
+        -144
+      ],
+      "id": "b0be6263-a0e1-411c-9e93-4ba69f743ad4",
+      "name": "Append or update row in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "MSirY9tZagInPCi8",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "models/gemini-3-flash-preview"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a sales lead qualifier. Read the business research below and reply with ONE flat JSON object only. Start with { and end with }. No markdown, no code fences, no text outside the JSON. Every value must be a plain text string. No nested objects and no lists.\n\nUse exactly these keys:\n{\n  \"business_info\": \"2-3 sentences on what the business does and its industry\",\n  \"services_products\": \"main products or services, comma separated\",\n  \"location\": \"headquarters and main locations, or not found\",\n  \"growth\": \"sales or revenue, scale of operations, funding, launches, and whether they are hiring (with roles if known)\",\n  \"lead\": \"Hot or Warm or Cold\",\n  \"lead_reason\": \"one line explaining the score\"\n}\n\nScoring: Hot = established company with clear scale or growth signals and an active need. Warm = some fit but unclear need or size. Cold = very small, unclear, or little business information.\nUse only the research below. If something isn't mentioned, write \"not found\". Do not guess or invent numbers.\n\nBusiness research:\n{{ $json.result.business_info }}"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        -32,
+        -144
+      ],
+      "id": "fa71c9f4-8377-4f67-a3c3-88b11231c0be",
+      "name": "Message a model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "CZYw5iuMJWblB60l",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9479e03e-e210-4f3a-949c-0d80e7c495ae",
+              "name": "Business info",
+              "value": "={{ JSON.parse($json.content.parts[0].text.replace(/```json|```/g, '').trim()).business_info }}",
+              "type": "string"
+            },
+            {
+              "id": "bd8df0e2-5456-4543-a378-59be609afc05",
+              "name": "Service/Product",
+              "value": "={{ JSON.parse($json.content.parts[0].text.replace(/```json|```/g, '').trim()).services_products }}",
+              "type": "string"
+            },
+            {
+              "id": "e68ac89f-3b21-4bde-b95c-80964b166ad6",
+              "name": "Location",
+              "value": "={{ JSON.parse($json.content.parts[0].text.replace(/```json|```/g, '').trim()).location }}",
+              "type": "string"
+            },
+            {
+              "id": "fd81618e-df0a-4cd3-a99a-d25be7a4469b",
+              "name": "Growth",
+              "value": "={{ JSON.parse($json.content.parts[0].text.replace(/```json|```/g, '').trim()).growth }}",
+              "type": "string"
+            },
+            {
+              "id": "b95bbc42-b22b-4514-8707-7cd6955c46a5",
+              "name": "Lead",
+              "value": "={{ JSON.parse($json.content.parts[0].text.replace(/```json|```/g, '').trim()).lead }}",
+              "type": "string"
+            },
+            {
+              "id": "4395a346-5b8b-4cf4-a531-985babca6163",
+              "name": "Lead Reason",
+              "value": "={{ JSON.parse($json.content.parts[0].text.replace(/```json|```/g, '').trim()).lead_reason }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        320,
+        -144
+      ],
+      "id": "6fa1aa44-1f59-41d3-b607-cf2f240565f5",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "TinyFish Web Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "TinyFish Web Agent": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "0a94a59d-dddf-4652-b99c-e112dfc10b37",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ed21ed7b684793bdfce32bd97aef600d362d2e8626dddc78766a1ae207385541"
+  },
+  "nodeGroups": [],
+  "id": "R0nUE0IVTr6IBj3f",
+  "tags": []
+}
