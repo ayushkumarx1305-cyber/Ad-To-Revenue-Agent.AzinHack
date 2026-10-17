@@ -1,0 +1,187 @@
+{
+  "name": "AzinHack-Project",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "ABC Company form for XYZ software",
+        "formDescription": "ABC Company this side. We are launching our new software XYZ and it will boost your business.\n\nPlease fill this form and we will contact you very soon. ",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Phone No.",
+              "fieldType": "number",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Email ID",
+              "fieldType": "email",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Company Website"
+            },
+            {
+              "fieldLabel": "What problem you are facing?"
+            },
+            {
+              "fieldLabel": "Social Media Profile"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        -304,
+        -144
+      ],
+      "id": "d31338f4-f5f0-4474-8629-6fe44a70bd19",
+      "name": "On form submission",
+      "webhookId": "0bac57d8-1933-4880-8982-c4063dad240f"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1FhQNGWfCfPJ18PLFMKnm-p4_Yy8arsuUGckBiFtloNE",
+          "mode": "list",
+          "cachedResultName": "Demo",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FhQNGWfCfPJ18PLFMKnm-p4_Yy8arsuUGckBiFtloNE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FhQNGWfCfPJ18PLFMKnm-p4_Yy8arsuUGckBiFtloNE/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.Name }}",
+            "Phone No.": "={{ $json['Phone No.'] }}",
+            "Email ID": "={{ $json['Email ID'] }}",
+            "Company Website": "={{ $json['Company Website'] }}",
+            "What problem you are facing?": "={{ $json['What problem you are facing?'] }}",
+            "Social Media Profile": "={{ $json['Social Media Profile'] }}"
+          },
+          "matchingColumns": [
+            "Email ID"
+          ],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Phone No.",
+              "displayName": "Phone No.",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email ID",
+              "displayName": "Email ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Company Website",
+              "displayName": "Company Website",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "What problem you are facing?",
+              "displayName": "What problem you are facing?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Social Media Profile",
+              "displayName": "Social Media Profile",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -32,
+        -144
+      ],
+      "id": "cdf73b05-1947-426c-88f8-631a48407e5e",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "MSirY9tZagInPCi8",
+          "name": "Google Sheets account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "11751b2a-c438-4fc8-97f1-dec78bf6e1c7",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ed21ed7b684793bdfce32bd97aef600d362d2e8626dddc78766a1ae207385541"
+  },
+  "nodeGroups": [],
+  "id": "R0nUE0IVTr6IBj3f",
+  "tags": []
+}
